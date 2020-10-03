@@ -1,4 +1,4 @@
- const  mongoose = require('mongoose')
+const mongoose = require('mongoose')
 const { ObjectId } = mongoose.Schema
 
 const productSchema = new mongoose.Schema({
@@ -26,19 +26,19 @@ const productSchema = new mongoose.Schema({
         required: true
     },
     quantity: {
-    	type: Number
+        type: Number
     },
     sold: {
         type: Number,
         default: 0
     },
     photo: {
-    	data: Buffer,
-    	contentType: String
+        data: Buffer,
+        contentType: String
     },
     shipping: {
-    	required: false,
-    	type: boolean
+        required: false,
+        type: Boolean
     }
 
 },
