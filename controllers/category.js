@@ -6,7 +6,7 @@ exports.categoryById = (req,res, next, id) => {
 	Category.findById(id).exec((err, category) => {
 		if(err || !category){
 			return res.status(400).json({
-				error: errorHandler(err)
+				error: 'Está categoria não existe'
 			})
 		}
 		req.category = category;
@@ -16,10 +16,10 @@ exports.categoryById = (req,res, next, id) => {
 
 exports.create = (req, res) =>{
 	const category = new Category(req.body)
-	category.save ((err, data) =>{
+	category.save ((err, data) => {
 		if(err){
 			return res.status(400).json({
-				error: "Está categoria não existe"
+				error: errorHandler(err)
 			});
 		}
 

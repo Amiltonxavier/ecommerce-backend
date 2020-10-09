@@ -11,8 +11,8 @@ router.delete("/category/categoryId/:userId", requireSignin, isAuth, isAdmin, re
 router.get('/categories', list)
 
 
-router.param('categoryId', categoryById)
-// router.param("userId", userId);
+router.param('categoryId', categoryById);
+router.param('userId', userById);
 
 
 module.exports = router;

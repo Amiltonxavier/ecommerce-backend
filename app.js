@@ -19,13 +19,14 @@ const expressValidator = require('express-validator');
 const path = require('path')
 require('dotenv').config({ path: path.resolve(__dirname, '.env') })
 
+//Connection with db
 mongoose
     .connect(process.env.DATABASE, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useCreateIndex: true
     })
-    .then(() => console.log("DB Connected"));
+    .then(() => console.log("Status: Conectado; Estabilida: ok"));
 
 //middlewares
 
