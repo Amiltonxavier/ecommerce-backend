@@ -1,7 +1,8 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 const { ObjectId } = mongoose.Schema
 
-const productSchema = new mongoose.Schema({
+const productSchema = new mongoose.Schema(
+    {
     name: {
         type: String,
         trim: true,
@@ -12,7 +13,7 @@ const productSchema = new mongoose.Schema({
         type: String,
         trim: true,
         required: true,
-        maxlength: 200
+        maxlength: 2000
     },
     price: {
         type: Number,
@@ -22,7 +23,7 @@ const productSchema = new mongoose.Schema({
     },
     category: {
         type: ObjectId,
-        ref: 'Category',
+        ref: "Category",
         required: true
     },
     quantity: {

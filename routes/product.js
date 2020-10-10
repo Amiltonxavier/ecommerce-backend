@@ -1,6 +1,18 @@
-const express = require("express")
+const express = require("express");
 const router = express.Router();
-const { create, productById, read, remove, update, list, listRelated, listCategories, listBySearch, photo, listSearch } = require("../controllers/product")
+
+
+const { 
+     create,
+     productById, 
+     read, 
+     remove, 
+     update, 
+     list, 
+     listRelated, 
+     listCategories, 
+     listBySearch, 
+     photo, listSearch } = require("../controllers/product")
 const { requireSignin, isAuth, isAdmin } = require("../controllers/auth");
 const { userById } = require("../controllers/user");
 

@@ -1,3 +1,5 @@
+const path = require('path')
+require('dotenv').config({ path: path.resolve(__dirname, '.env') })
 const express = require('express')
 
 //app
@@ -16,8 +18,8 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const cors = require('cors'); 
 const expressValidator = require('express-validator');
-const path = require('path')
-require('dotenv').config({ path: path.resolve(__dirname, '.env') })
+//const path = require('path')
+//require('dotenv').config({ path: path.resolve(__dirname, '.env') })
 
 //Connection with db
 mongoose

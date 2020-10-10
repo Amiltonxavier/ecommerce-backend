@@ -1,10 +1,11 @@
 const formidable = require("formidable");
 const _ = require('lodash');
+const fs = require('fs');
 const Product = require('../models/product');
 const { errorHandler } = require('../helpers/dbErrorHandler');
-const fs = require('fs');
 
-exports.productById = (req, res, next) => {
+
+exports.productById = (req, res, next, id) => {
 	Product.findById(id)
 	.populate('category')
 	.exec((err, product) => {
@@ -26,8 +27,8 @@ exports.read = (req, res) => {
 
 exports.create = (req, res) => {
 
-	let form = new formidable.IncomingForm()
-	form.keepExtensions = true
+	let form = new formidable.IncomingForm();
+	form.keepExtensions = true;
 	form.parse(req, (err, fields, files) => {
 		if (err) {
 			return res.status(400).json({
@@ -36,27 +37,15 @@ exports.create = (req, res) => {
 		}
 
 		//checar todos os campos
-		const { name,
-			description,
-			price,
-			category,
-			quantity,
-			shipping
-		} = fields
+		const { name, description, price, category, quantity, shipping } = fields;
 
-		if (!name ||
-			!description ||
-			!price ||
-			!category ||
-			!quantity ||
-			!shipping
-		) {
+		if (!name || !description || !price || !category || !quantity || !shipping) {
 			return res.status(400).json({
 				error: "Todos os campos são Obrigatórios"
 			})
 		} //Termina o if
 
-		let product = new Product(fields)
+		let product = new Product(fields);
 
 		//1kb = 100
 		//1mb = 100000
@@ -69,21 +58,22 @@ exports.create = (req, res) => {
 					error: "Imagem o tamanho da imagem tem que ser menor que 1mb"
 				})
 			}
-			product.photo.data = fs.readFileSync(files.photo.path)
-			product.photo.contentType = files.photo.type
+			product.photo.data = fs.readFileSync(files.photo.path);
+			product.photo.contentType = files.photo.type;
 		}
 
 		product.save((err, result) => {
 			if (err) {
+				console.log('Erro ao criar o produto', err);
 				return res.status(400).json({
 					error: errorHandler(err)
 				});
 			}
 
 			res.json(result);
-		})
-	})
-}
+		});
+	});
+};
 
 exports.remove = (req, res) => {
 
