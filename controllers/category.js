@@ -1,7 +1,7 @@
 const Category = require('../models/category');
 const { errorHandler } = require('../helpers/dbErrorHandler');
 
-//Preocurar categoria pele id
+//Preocurar categoria pelo id
 exports.categoryById = (req,res, next, id) => {
 	Category.findById(id).exec((err, category) => {
 		if(err || !category){
