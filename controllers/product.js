@@ -6,23 +6,25 @@ const { errorHandler } = require('../helpers/dbErrorHandler');
 
 
 exports.productById = (req, res, next, id) => {
-	Product.findById(id)
-	.populate('category')
-	.exec((err, product) => {
-		if (err || !product) {
-			return res.status(400).json({
-				error: "Produto não foi encontrado"
-			})
-		}
-		req.product = product;
-		next();
-	})
-}
+    Product.findById(id)
+        .populate('category')
+        .exec((err, product) => {
+            if (err || !product) {
+				console.log(err)
+                return res.status(400).json({
+                    error: 'Produto não foi encontrado'
+                });
+            }
+            req.product = product;
+            next();
+        });
+};
 
 exports.read = (req, res) => {
-	req.product.photo = undefined;
-	return res.json(req.product);
-}
+    req.product.photo = undefined;
+    return res.json(req.product);
+};
+
 
 
 exports.create = (req, res) => {
@@ -186,19 +188,21 @@ exports.list = (req, res) => {
 * Other products that has the same category, will be returned
 */
 exports.listRelated = (req, res) => {
-	let limit = req.query.limit ? parseInt(req.query.limit) : 6;
-	Product.find({ _id: { $ne: req.product }, category: req.product.category })
-		.limit(limit)
-		.populate('category', '_id name')
-		.exec((err, products) => {
-			if (err) {
-				return res.status(400).json({
-					error: "Produto não encontrado"
-				});
-			}
-			res.json(products);
-		})
-}
+    let limit = req.query.limit ? parseInt(req.query.limit) : 6;
+
+    Product.find({ _id: { $ne: req.product }, category: req.product.category })
+        .limit(limit)
+        .populate('category', '_id name')
+        .exec((err, products) => {
+            if (err) {
+				console.log(err);
+                return res.status(400).json({
+                    error: 'Products não encontrado'
+                });
+            }
+            res.json(products);
+        });
+};
 
 exports.listCategories = (req, res) => {
 	Product.distinct("category", {}, (err, categories) => {
@@ -288,6 +292,7 @@ exports.listSearch = (req, res) =>{
 		//search and category
 		Product.find(query, (err, products) =>{
 			if(err){
+				console.log(err);
 				return res.status(400).json({
 					error: errorHandler(err)
 				})
