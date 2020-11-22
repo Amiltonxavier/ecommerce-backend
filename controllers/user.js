@@ -23,6 +23,12 @@ exports.read = (req, res) =>{
 	return res.json(req.profile);
 }
 
+// Pegar todos os usuários
+exports.list = (req, res) => {
+    console.log(req.profile);
+    return res.json(req.profile);
+}
+
 //Atualizando o Perfil do Usuário
 exports.update = (req, res) => {
  

@@ -28,7 +28,7 @@ exports.create = (req, res) =>{
 };
 
 
-//Reat
+//Read
 exports.read = (req, res) => {
 	return res.json(req.category);
 };
