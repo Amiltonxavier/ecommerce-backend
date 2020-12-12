@@ -25,8 +25,14 @@ exports.read = (req, res) =>{
 
 // Pegar todos os usuários
 exports.list = (req, res) => {
-    console.log(req.profile);
-    return res.json(req.profile);
+   User.find({}, function(err, users){
+       let userMap = {};
+
+            users.forEach(function(user){
+                userMap[user._id] = user;
+        });
+        res.send(userMap); 
+   })
 }
 
 //Atualizando o Perfil do Usuário
