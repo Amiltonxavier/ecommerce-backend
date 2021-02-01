@@ -32,7 +32,8 @@ exports.processPayment = (req, res) => {
 	let amountFromTheClient = req.body.amount
 
 	//charge
-
+		
+	
 	let newTransaction = gateway.transaction.sale({
 		amount: amountFromTheClient,
 		paymentMethodNonce: nonceFromTheClient, 
@@ -43,7 +44,8 @@ exports.processPayment = (req, res) => {
 		  if (result.success) {
 		    res.json(result);
 		  } else {
-		    res.status(500).json(error)
+			  console.log(result.errors)
+			//res.status(500).json(error); 
 		  }
 		  }).catch(function (err) {
 		  	console.error(err);
