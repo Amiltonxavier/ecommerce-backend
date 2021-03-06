@@ -116,14 +116,19 @@ exports.purchaseHistory = (req, res) => {
         });
 };
 
-exports.remove = (req, res) =>{
+//Delete User
+exports.remove = async(req, res, next) =>{
     //mongoose.set('useFindAndModify', false);
-    User
-    .findByIdAndRemove(req.params.clientId)
-    .exec()
-    .then(doc => {
-        if(!doc) { return res.status(404).end();}
-        return res.status(204).end();
-    }) 
-    .catch(err => next(err));
+    const user= await User.findById(req.params.clientId)
+    if(!user){
+        return res.status(400).json({
+            error: errorHandler(err)
+        });
+    }
+
+    await user.remove();
+    res.status(200).json({
+        success: true,
+        user
+    })
 }

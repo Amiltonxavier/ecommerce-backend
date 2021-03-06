@@ -31,7 +31,16 @@ exports.create = (req, res) => {
        res.json(data)
 	})
 };
-
+//Order by Id
+exports.orderByIdUser = (req, res) => {
+	const ids = req.params.ids;
+	Order.find({user: ids}).exec((err, data) => {
+		if(err) {
+			console.log(err)
+		}
+		res.json(data)
+	})
+}
 
 exports.listOrders = (req, res) => {
 	Order.find()
