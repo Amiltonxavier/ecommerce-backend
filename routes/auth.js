@@ -9,10 +9,9 @@ if i add {userSignupValidator} function. I´ll be have other bug
 * on validator it'll say that name is required
 userSignupValidator,
 */
-router.post("/signup", signup );
+router.post("/signup", userSignupValidator, signup );
 router.post("/signin", signin );
 router.get("/signout", signout );
-
 
 
 module.exports = router

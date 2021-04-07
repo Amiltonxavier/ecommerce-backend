@@ -14,11 +14,12 @@ const userSchema = new mongoose.Schema(
         type: String,
         trim: true,
         required: true,
-        unique: 32
+        unique: true
     },
     phone: {
         type: Number,
-        required: true
+        required: true,
+        unique: true
     },
     hashed_password: {
         type: String,
@@ -54,7 +55,12 @@ userSchema
 .get(function(){
     return this._password;
 });
-
+/*
+userSchema.path('email').validate(async (email) => {
+    const emailCount = await mongoose.models.User.countDocuments({ email })
+    return !emailCount
+}, 'Email already exists')
+*/
 userSchema.methods = {
     authenticate: function(plainText) {
         return this.encryptPassword(plainText) === this.hashed_password;
